@@ -19,8 +19,6 @@ from django.urls import path, include
 from django.contrib.auth.models import User
 from rest_framework import routers, serializers, viewsets
 
-import blog.views
-
 
 # Serializers define the API representation.
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -40,8 +38,8 @@ router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 
 urlpatterns = [
+    path("", include("blog.urls")),
     path("admin/", admin.site.urls),
-    path("home/", blog.views.fetchBlogFeed),
     path("api/", include(router.urls)),
     path("api-auth/", include('rest_framework.urls', namespace='rest_framework'))
 ]
